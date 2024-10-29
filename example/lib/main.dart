@@ -57,11 +57,10 @@ class MyAppState extends State<MyApp> {
                 ),
                 IntlPhoneField(
                   focusNode: focusNode,
+                  showDialCode: false,
                   decoration: const InputDecoration(
                     labelText: 'Phone Number',
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide(),
-                    ),
+                    border: OutlineInputBorder(),
                   ),
                   languageCode: "en",
                   onChanged: (phone) {
