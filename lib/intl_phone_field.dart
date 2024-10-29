@@ -1,7 +1,7 @@
 library intl_phone_field;
 
 import 'dart:async';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' show kDebugMode, kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
@@ -473,7 +473,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                 if (widget.showCountryFlag) ...[
                   kIsWeb
                       ? Image.asset(
-                          'flags/${_selectedCountry.code.toLowerCase()}.png',
+                          '${kDebugMode ? 'assets/' : ''}flags/${_selectedCountry.code.toLowerCase()}.png',
                           package: 'intl_phone_field',
                           width: 32,
                         )
