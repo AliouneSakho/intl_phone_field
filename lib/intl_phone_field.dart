@@ -473,7 +473,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                 if (widget.showCountryFlag) ...[
                   kIsWeb
                       ? Image.asset(
-                          'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
+                          'flags/${_selectedCountry.code.toLowerCase()}.png',
                           package: 'intl_phone_field',
                           width: 32,
                         )
