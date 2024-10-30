@@ -246,6 +246,9 @@ class IntlPhoneField extends StatefulWidget {
   /// Enable the autofill hint for phone number.
   final bool disableAutoFillHints;
 
+  /// Enable the autofill hint for phone number.
+  final bool showDialCode;
+
   /// If null, default magnification configuration will be used.
   final TextMagnifierConfiguration? magnifierConfiguration;
 
@@ -266,6 +269,7 @@ class IntlPhoneField extends StatefulWidget {
     this.focusNode,
     this.decoration = const InputDecoration(),
     this.style,
+    this.showDialCode = true,
     this.dropdownTextStyle,
     this.onSubmitted,
     this.validator,
@@ -296,7 +300,8 @@ class IntlPhoneField extends StatefulWidget {
     this.pickerDialogStyle,
     this.flagsButtonMargin = EdgeInsets.zero,
     this.magnifierConfiguration,
-  }) : super(key: key);
+  })  : assert(showDialCode || showCountryFlag, 'At least one of showDialCode or showCountryFlag must be true'),
+        super(key: key);
 
   @override
   State<IntlPhoneField> createState() => _IntlPhoneFieldState();
@@ -473,7 +478,7 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                 if (widget.showCountryFlag) ...[
                   kIsWeb
                       ? Image.asset(
-                          '${kDebugMode ? 'assets/' : ''}flags/${_selectedCountry.code.toLowerCase()}.png',
+                          'assets/flags/${_selectedCountry.code.toLowerCase()}.png',
                           package: 'intl_phone_field',
                           width: 32,
                         )
@@ -483,12 +488,13 @@ class _IntlPhoneFieldState extends State<IntlPhoneField> {
                         ),
                   const SizedBox(width: 8),
                 ],
-                FittedBox(
-                  child: Text(
-                    '+${_selectedCountry.dialCode}',
-                    style: widget.dropdownTextStyle,
+                if (widget.showDialCode)
+                  FittedBox(
+                    child: Text(
+                      '+${_selectedCountry.dialCode}',
+                      style: widget.dropdownTextStyle,
+                    ),
                   ),
-                ),
                 if (widget.enabled &&
                     widget.showDropdownIcon &&
                     widget.dropdownIconPosition == IconPosition.trailing) ...[
